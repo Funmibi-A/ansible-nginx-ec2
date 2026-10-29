@@ -180,11 +180,11 @@ I ran the same playbook twice.
 
 **Run 1** applied the apt update, installed Nginx, deployed the HTML file, and triggered the reload handler. The "Start and enable Nginx" task reported `ok` rather than `changed` because Ubuntu already starts and enables Nginx automatically when the package is installed.
 
-![Run 1 recap](ansible-recap-1.png)
+![Run 1 recap](screenshots/ansible-recap-1.png)
 
 **Run 2** reported `changed=0`. Ansible compared the server to the desired state, found nothing to fix, and did nothing. The reload handler did not run because the HTML file was unchanged.
 
-![Run 2 recap](ansible-recap-2.png)
+![Run 2 recap](screenshots/ansible-recap-2.png)
 
 This is idempotency: the playbook can be run repeatedly and safely, which helps prevent configuration drift.
 
@@ -192,7 +192,7 @@ This is idempotency: the playbook can be run repeatedly and safely, which helps 
 
 Opening `http://54.210.37.254` in a browser shows the custom page served by Nginx:
 
-![Deployed page](nginx.png)
+![Deployed page](screenshots/nginx.png)
 
 Command-line check:
 
