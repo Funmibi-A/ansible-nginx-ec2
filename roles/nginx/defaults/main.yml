@@ -1,0 +1,8 @@
+---
+nginx_package: nginx
+nginx_service: nginx
+nginx_web_root: /var/www/html
+nginx_index_file: index.html
+nginx_web_user: www-data
+nginx_web_group: www-data
+apt_cache_valid_time: 3600

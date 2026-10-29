@@ -3,35 +3,14 @@
   hosts: webservers
   become: true
 
-  tasks:
-    - name: Update apt package cache and upgrade system packages
-      ansible.builtin.apt:
-        update_cache: true
-        upgrade: dist
-        cache_valid_time: 3600
+  roles:
+    - nginx
 
-    - name: Install Nginx
-      ansible.builtin.apt:
-        name: nginx
-        state: present
-
-    - name: Start and enable Nginx service
-      ansible.builtin.service:
-        name: nginx
-        state: started
-        enabled: true
-
-    - name: Deploy custom HTML page
-      ansible.builtin.copy:
-        src: index.html
-        dest: /var/www/html/index.html
-        owner: www-data
-        group: www-data
-        mode: "0644"
-      notify: Reload Nginx
-
-  handlers:
-    - name: Reload Nginx
-      ansible.builtin.service:
-        name: nginx
-        state: reloaded
+  post_tasks:
+    - name: Verify the site responds from the control node
+      ansible.builtin.uri:
+        url: "http://{{ vault_ec2_public_ip }}"
+        status_code: 200
+      delegate_to: localhost
+      become: false
+      changed_when: false

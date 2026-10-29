@@ -1,0 +1,26 @@
+---
+- name: Update apt package cache and upgrade system packages
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: dist
+    cache_valid_time: "{{ apt_cache_valid_time }}"
+
+- name: Install Nginx
+  ansible.builtin.apt:
+    name: "{{ nginx_package }}"
+    state: present
+
+- name: Start and enable Nginx service
+  ansible.builtin.service:
+    name: "{{ nginx_service }}"
+    state: started
+    enabled: true
+
+- name: Deploy custom HTML page
+  ansible.builtin.copy:
+    src: "{{ nginx_index_file }}"
+    dest: "{{ nginx_web_root }}/{{ nginx_index_file }}"
+    owner: "{{ nginx_web_user }}"
+    group: "{{ nginx_web_group }}"
+    mode: "0644"
+  notify: Reload Nginx
