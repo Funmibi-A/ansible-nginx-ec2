@@ -14,7 +14,7 @@ This project separates **infrastructure provisioning** (AWS EC2 and networking) 
 Because Ansible describes the *desired state* rather than a list of commands, the playbook is **idempotent**: running it again changes nothing if the server already matches.
 
 ## Architecture
-![network diagram](screenshot/ec2-nginx-ansible-network-diagram.png)
+![network diagram](screenshots/ec2-nginx-ansible-network-diagram.png)
 
 | Component | Details |
 |---|---|
